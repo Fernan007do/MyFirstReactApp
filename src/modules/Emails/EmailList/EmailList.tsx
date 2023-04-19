@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Email } from "../../../models/EmailModel";
 import { EmailRow } from "./EmailRow";
-import { Col, List, Row } from "antd";
+import { Col, Divider, List, Row, Typography } from "antd";
+
 
 const INITIAL_STATE: Array<Email>= [
     {
@@ -38,10 +39,26 @@ export const EmailList: React.FC = () => {
 
     const [Emails, setEmails] = useState<Array<Email>>(INITIAL_STATE)
     return (
-        <List
-        itemLayout="horizontal"
-        dataSource={Emails}
-        renderItem={(email) => <EmailRow email={email} />}
-        />
+        <div>
+            <Row justify={"space-evenly"}>
+                <Col span={8}>
+                    <Typography.Title level={4}>Nombre del Remitente</Typography.Title>
+                </Col>
+                <Col span={8} >
+                    <Typography.Title level={4}>Fecha</Typography.Title>
+                </Col>
+                <Col span={8} >
+                    <Typography.Title level={4}>Acciones</Typography.Title>
+                </Col>
+            </Row>
+            
+
+            <List
+                itemLayout="horizontal"
+                dataSource={Emails}
+                renderItem={(email) => <EmailRow email={email} />}
+            />
+        </div>
+
       );
 }
