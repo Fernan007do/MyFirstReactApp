@@ -6,4 +6,5 @@ export interface Email {
     created_at: string
     updated_at: string
     index: number
+    deleted: boolean
 }
