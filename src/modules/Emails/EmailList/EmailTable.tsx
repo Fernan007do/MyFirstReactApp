@@ -26,6 +26,7 @@ const EmailsTable = ({emailList, handleEmailDelete, handleEmailRead}:EmailTableP
           <span style={{ marginLeft: '12px' }}>{text}</span>
         </div>
       ),
+
     },
     {
       title: 'Fecha',
@@ -44,8 +45,20 @@ const EmailsTable = ({emailList, handleEmailDelete, handleEmailRead}:EmailTableP
       render: (text: string, record:Email) => (
         <span>
           <Button type="primary" icon={<EditOutlined />}>Editar</Button>
+
+          {/* VER: */}
           <Button style={{ marginLeft: '8px' }} onClick={() => handleEmailRead(record)} >Ver</Button>
-          <Button danger style={{ marginLeft: '8px' }} icon={<DeleteOutlined /> } onClick={() => handleEmailDelete(record)} >Eliminar</Button>
+
+          {/* ELIMINAR :  diferentes botones dependiendo de si está eliminado o no */}
+          {record.deleted == false ? 
+          (
+            <Button danger style={{ marginLeft: '8px' }} icon={<DeleteOutlined /> } onClick={() => handleEmailDelete(record)} >Eliminar</Button>
+          ): 
+          (
+            <Button danger disabled style={{ marginLeft: '8px' }} icon={<DeleteOutlined /> }>Eliminar</Button>
+          )
+          }
+
         </span>
       ),
       align: 'center' 

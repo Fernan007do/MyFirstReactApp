@@ -223,10 +223,10 @@ const initialINBOX: Email[] = [
 
 export const EmailPage: React.FC = () => {
   const [INBOX, setINBOX] = useState<Email[]>(initialINBOX)
-  const READ: Email[] = INBOX.filter(email => email.state == true)
-  const UNREAD: Email[] = INBOX.filter(email => email.state == false)
-  const DELETED: Email[] = INBOX.filter(email => email.deleted == true)
   const NOTDELETED : Email[] = INBOX.filter(email => email.deleted == false)
+  const READ: Email[] = NOTDELETED.filter(email => email.state == true)
+  const UNREAD: Email[] = NOTDELETED.filter(email => email.state == false)
+  const DELETED: Email[] = INBOX.filter(email => email.deleted == true)
   const [EMAILS, setEMAILS] = useState<Email[]>([...INBOX])
 
   const {
