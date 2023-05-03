@@ -1,11 +1,11 @@
-import { EmailPage } from './modules/Emails/EmailsPage';
+import EmailTab from './modules/Emails/EmailList/EmailTab';
 
 
 function App() {
 
   return (
     <div className="App">
-      <EmailPage/>
+      <EmailTab/>
     </div>
   );
 }

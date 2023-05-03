@@ -1,9 +1,10 @@
 import { Email } from '../../../models/EmailModel';
-import { Table, Button, Avatar, Col, TableProps } from 'antd';
+import { Table, Button, Avatar, Col, TableProps, List } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import './table.css'
 import { ColumnsType } from 'antd/es/table';
 import { useState } from 'react';
+import EmailModal from './EmailModal';
 
 interface EmailTableProps {
   emailList: Email[];
@@ -15,17 +16,25 @@ interface EmailTableProps {
 
 
 const EmailsTable = ({emailList, handleEmailDelete, handleEmailRead}:EmailTableProps): JSX.Element => {
+  
   const columns: ColumnsType<Email> = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
       render: (text: string, record: Email) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${record.index}`} />
-          <span style={{ marginLeft: '12px' }}>{text}</span>
+        <div style={{display:'flex', alignItems: 'start', width:'100%' }}>
+          <Avatar style={{display: 'inline-block  '}}src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${record.index}`} />
+          <span style={{display:'flex', flexDirection:'column', alignItems: 'start', width:'100%', marginLeft:'1rem'}}>
+            <span style={{fontWeight:'bold'}}>{text}</span>
+            <p style={{margin:'0', fontStyle:'italic', color:'grey'}}>{record.description.slice(0, 50)}...</p>   
+          </span>
+                 
         </div>
+
       ),
+      align: 'center',
+      width: '33%',
 
     },
     {
@@ -37,7 +46,8 @@ const EmailsTable = ({emailList, handleEmailDelete, handleEmailRead}:EmailTableP
             {created_at}
         </span>
       ),
-      width: '100px'
+      align: 'center',
+      width: '33%',
     },
     {
       title: 'Actions',
@@ -47,7 +57,7 @@ const EmailsTable = ({emailList, handleEmailDelete, handleEmailRead}:EmailTableP
           <Button type="primary" icon={<EditOutlined />}>Editar</Button>
 
           {/* VER: */}
-          <Button style={{ marginLeft: '8px' }} onClick={() => handleEmailRead(record)} >Ver</Button>
+          <EmailModal emailModal={record} handleEmailRead={handleEmailRead}/>
 
           {/* ELIMINAR :  diferentes botones dependiendo de si está eliminado o no */}
           {record.deleted == false ? 
@@ -61,7 +71,8 @@ const EmailsTable = ({emailList, handleEmailDelete, handleEmailRead}:EmailTableP
 
         </span>
       ),
-      align: 'center' 
+      align: 'center',
+      width: '33%',
     },
   ];
   const pagination = {
